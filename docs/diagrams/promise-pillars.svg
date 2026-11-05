@@ -1,0 +1,41 @@
+<svg viewBox="0 0 1200 430" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Our word to you: Hermes runs on your phone, your keys and providers are yours, and it is a real agent with tools — not just a chatbot.">
+  <desc>Fresh W8BDCR Hermes promise diagram, drawn for this repo. Three stacked bands, each with a drawn mark on the left, the promise in the middle, and a small proof note on the right.</desc>
+  <defs>
+    <pattern id="dotPaperBands2" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.2" fill="#ffffff" fill-opacity="0.07"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="430" fill="#0b0e14"/>
+  <rect width="1200" height="430" fill="url(#dotPaperBands2)"/>
+
+  <text x="48" y="56" font-family="Consolas, 'Courier New', monospace" font-size="13" letter-spacing="2.5" fill="#4ade80">OUR WORD TO YOU</text>
+  <text x="48" y="96" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="30" font-weight="800" fill="#e9edf3">Three things this agent stands by.</text>
+
+  <g font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif">
+    <!-- band 1 -->
+    <rect x="48" y="126" width="1104" height="82" rx="14" fill="#161b22" stroke="#22c55e" stroke-opacity="0.55" stroke-width="1.5"/>
+    <rect x="76" y="150" width="34" height="34" rx="9" fill="none" stroke="#4ade80" stroke-width="2"/>
+    <rect x="86" y="160" width="14" height="20" rx="3" fill="#4ade80"/>
+    <text x="136" y="168" font-size="20" font-weight="800" fill="#e9edf3">It runs on your phone</text>
+    <text x="136" y="192" font-size="14" fill="#a1a1aa">Termux + Ubuntu — no PC, no server, no root.</text>
+    <text x="1124" y="172" text-anchor="end" font-size="15" font-weight="700" fill="#4ade80">one command installs it</text>
+
+    <!-- band 2 -->
+    <rect x="48" y="222" width="1104" height="82" rx="14" fill="#161b22" stroke="#22c55e" stroke-opacity="0.55" stroke-width="1.5"/>
+    <circle cx="93" cy="263" r="17" fill="none" stroke="#4ade80" stroke-width="2"/>
+    <circle cx="93" cy="256" r="5" fill="#4ade80"/>
+    <path d="M 83 272 a 10 10 0 0 1 20 0 Z" fill="#4ade80"/>
+    <text x="136" y="264" font-size="20" font-weight="800" fill="#e9edf3">Your keys, your providers</text>
+    <text x="136" y="288" font-size="14" fill="#a1a1aa">Pick a provider, add its key, switch anytime.</text>
+    <text x="1124" y="268" text-anchor="end" font-size="15" font-weight="700" fill="#4ade80">hermes setup model</text>
+
+    <!-- band 3 -->
+    <rect x="48" y="318" width="1104" height="82" rx="14" fill="#0f1f14" stroke="#4ade80" stroke-width="2"/>
+    <rect x="76" y="342" width="34" height="34" rx="9" fill="none" stroke="#4ade80" stroke-width="2"/>
+    <text x="93" y="366" text-anchor="middle" font-family="Consolas, 'Courier New', monospace" font-size="16" font-weight="700" fill="#4ade80">&gt;_</text>
+    <text x="136" y="360" font-size="20" font-weight="800" fill="#e9edf3">A real agent, not a chatbot</text>
+    <text x="136" y="384" font-size="14" fill="#a1a1aa">20 tools: terminal, files, web, code, memory, vision, cron jobs and more.</text>
+    <text x="1124" y="364" text-anchor="end" font-size="15" font-weight="700" fill="#4ade80">it does the work</text>
+  </g>
+</svg>

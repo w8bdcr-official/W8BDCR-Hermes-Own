@@ -1,0 +1,17 @@
+<svg width="1200" height="360" viewBox="0 0 1200 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Your keys stay on your phone">
+<title>Your keys stay on your phone</title>
+<rect width="1200" height="360" rx="16" fill="#0b1220"/>
+<text x="40" y="60" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="30" fill="#e5e7eb" text-anchor="start" font-weight="700">Private by design — your keys stay on your phone</text>
+<rect x="40" y="92" width="480" height="160" rx="12" fill="#111827" stroke="#22c55e" stroke-width="2"/>
+<text x="64" y="132" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#22c55e" text-anchor="start" font-weight="700">YOUR PHONE</text>
+<text x="64" y="172" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="20" fill="#e5e7eb" text-anchor="start">/root/.hermes/.env — your keys</text>
+<text x="64" y="206" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="20" fill="#e5e7eb" text-anchor="start">/root/.hermes/config.yaml</text>
+<text x="580" y="185" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="40" fill="#22c55e" text-anchor="start" font-weight="700">→</text>
+<text x="640" y="165" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#e5e7eb" text-anchor="middle">only your chat</text>
+<rect x="680" y="92" width="480" height="160" rx="12" fill="#111827" stroke="#38bdf8" stroke-width="2"/>
+<text x="704" y="132" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#38bdf8" text-anchor="start" font-weight="700">YOUR PROVIDER</text>
+<text x="704" y="172" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="20" fill="#e5e7eb" text-anchor="start">OpenRouter · Atria · Inception …</text>
+<text x="704" y="206" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="20" fill="#94a3b8" text-anchor="start">the one YOU chose</text>
+<rect x="40" y="278" width="1120" height="52" rx="12" fill="#1f2937"/>
+<text x="64" y="311" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" fill="#e5e7eb" text-anchor="start">No W8BDCR server in the middle — nothing of yours is stored anywhere else.</text>
+</svg>

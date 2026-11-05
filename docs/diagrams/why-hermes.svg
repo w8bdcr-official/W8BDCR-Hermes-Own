@@ -1,0 +1,41 @@
+<svg viewBox="0 0 1200 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Four reasons your phone is the right home for Hermes: no PC needed, keys never leave home, free models work, and the setup traps are already fixed.">
+  <desc>Fresh W8BDCR Hermes why diagram, drawn for this repo. A two-by-two quadrant of numbered reasons — no pain-versus-fix rows.</desc>
+  <defs>
+    <pattern id="dotPaperQuad2" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.2" fill="#ffffff" fill-opacity="0.07"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="470" fill="#0b0e14"/>
+  <rect width="1200" height="470" fill="url(#dotPaperQuad2)"/>
+
+  <text x="48" y="56" font-family="Consolas, 'Courier New', monospace" font-size="13" letter-spacing="2.5" fill="#4ade80">FOUR REASONS IT BELONGS HERE</text>
+  <text x="48" y="96" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="30" font-weight="800" fill="#e9edf3">Your phone is the right home for an agent.</text>
+
+  <g font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif">
+    <!-- 01 -->
+    <rect x="48" y="130" width="552" height="146" rx="14" fill="#161b22" stroke="#22c55e" stroke-opacity="0.55" stroke-width="1.5"/>
+    <text x="76" y="172" font-family="Consolas, 'Courier New', monospace" font-size="15" font-weight="700" fill="#4ade80">01</text>
+    <text x="76" y="206" font-size="20" font-weight="800" fill="#e9edf3">No PC needed</text>
+    <text x="76" y="236" font-size="14" fill="#a1a1aa">Agents usually want a computer or a server.</text>
+    <text x="76" y="258" font-size="14" fill="#4ade80">Hermes runs on the phone you already carry.</text>
+    <!-- 02 -->
+    <rect x="600" y="130" width="552" height="146" rx="14" fill="#161b22" stroke="#22c55e" stroke-opacity="0.55" stroke-width="1.5"/>
+    <text x="628" y="172" font-family="Consolas, 'Courier New', monospace" font-size="15" font-weight="700" fill="#4ade80">02</text>
+    <text x="628" y="206" font-size="20" font-weight="800" fill="#e9edf3">Keys never leave home</text>
+    <text x="628" y="236" font-size="14" fill="#a1a1aa">Every tool wants its own account and key.</text>
+    <text x="628" y="258" font-size="14" fill="#4ade80">Here they sit in /root/.hermes/.env — on your phone.</text>
+    <!-- 03 -->
+    <rect x="48" y="292" width="552" height="146" rx="14" fill="#161b22" stroke="#22c55e" stroke-opacity="0.55" stroke-width="1.5"/>
+    <text x="76" y="334" font-family="Consolas, 'Courier New', monospace" font-size="15" font-weight="700" fill="#4ade80">03</text>
+    <text x="76" y="368" font-size="20" font-weight="800" fill="#e9edf3">Free models actually work</text>
+    <text x="76" y="398" font-size="14" fill="#a1a1aa">Paid portals and empty balances stop most setups.</text>
+    <text x="76" y="420" font-size="14" fill="#4ade80">OpenRouter's free model answered on the first chat.</text>
+    <!-- 04 -->
+    <rect x="600" y="292" width="552" height="146" rx="14" fill="#0f1f14" stroke="#4ade80" stroke-width="2"/>
+    <text x="628" y="334" font-family="Consolas, 'Courier New', monospace" font-size="15" font-weight="700" fill="#4ade80">04</text>
+    <text x="628" y="368" font-size="20" font-weight="800" fill="#e9edf3">Setup traps already fixed</text>
+    <text x="628" y="398" font-size="14" fill="#a1a1aa">Wrong Python, missing modules, dependency fights.</text>
+    <text x="628" y="420" font-size="14" fill="#4ade80">Python 3.14, Pillow 13 and ruamel.yaml — handled.</text>
+  </g>
+</svg>

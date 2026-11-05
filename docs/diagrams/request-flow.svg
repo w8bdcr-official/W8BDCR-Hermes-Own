@@ -1,0 +1,29 @@
+<svg width="1200" height="320" viewBox="0 0 1200 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="How one message flows">
+<title>How one message flows</title>
+<rect width="1200" height="320" rx="16" fill="#0b1220"/>
+<text x="40" y="60" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="30" fill="#e5e7eb" text-anchor="start" font-weight="700">How one message flows</text>
+<rect x="40" y="96" width="165" height="110" rx="12" fill="#111827" stroke="#22c55e" stroke-width="2"/>
+<text x="122" y="140" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#e5e7eb" text-anchor="middle" font-weight="700">You</text>
+<text x="122" y="176" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="16" fill="#94a3b8" text-anchor="middle">type a message</text>
+<text x="209" y="160" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="26" fill="#22c55e" text-anchor="start" font-weight="700">→</text>
+<rect x="233" y="96" width="165" height="110" rx="12" fill="#111827" stroke="#38bdf8" stroke-width="2"/>
+<text x="315" y="140" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#e5e7eb" text-anchor="middle" font-weight="700">Gateway</text>
+<text x="315" y="176" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="16" fill="#94a3b8" text-anchor="middle">local server</text>
+<text x="402" y="160" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="26" fill="#22c55e" text-anchor="start" font-weight="700">→</text>
+<rect x="426" y="96" width="165" height="110" rx="12" fill="#111827" stroke="#a78bfa" stroke-width="2"/>
+<text x="508" y="140" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#e5e7eb" text-anchor="middle" font-weight="700">Agent</text>
+<text x="508" y="176" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="16" fill="#94a3b8" text-anchor="middle">plans &amp; acts</text>
+<text x="595" y="160" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="26" fill="#22c55e" text-anchor="start" font-weight="700">→</text>
+<rect x="619" y="96" width="165" height="110" rx="12" fill="#111827" stroke="#f59e0b" stroke-width="2"/>
+<text x="701" y="140" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#e5e7eb" text-anchor="middle" font-weight="700">Tools</text>
+<text x="701" y="176" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="16" fill="#94a3b8" text-anchor="middle">20 toolsets</text>
+<text x="788" y="160" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="26" fill="#22c55e" text-anchor="start" font-weight="700">→</text>
+<rect x="812" y="96" width="165" height="110" rx="12" fill="#111827" stroke="#38bdf8" stroke-width="2"/>
+<text x="894" y="140" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#e5e7eb" text-anchor="middle" font-weight="700">Provider</text>
+<text x="894" y="176" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="16" fill="#94a3b8" text-anchor="middle">your model</text>
+<text x="981" y="160" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="26" fill="#22c55e" text-anchor="start" font-weight="700">→</text>
+<rect x="1005" y="96" width="165" height="110" rx="12" fill="#111827" stroke="#22c55e" stroke-width="2"/>
+<text x="1087" y="140" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#e5e7eb" text-anchor="middle" font-weight="700">Answer</text>
+<text x="1087" y="176" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="16" fill="#94a3b8" text-anchor="middle">in your language</text>
+<text x="40" y="262" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="19" fill="#94a3b8" text-anchor="start">Every step runs on your phone — only the model call leaves it, to the provider you chose.</text>
+</svg>

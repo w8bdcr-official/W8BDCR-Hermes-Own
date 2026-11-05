@@ -3,7 +3,8 @@
 # Removes, in order:
 #   - hermes-agent source + venv inside the container
 #   - the ~/.local/bin/hermes launcher + the PATH line in .bashrc
-#   - the Termux-level `hermes` wrapper
+#   - the ~/.local/bin/hermes-start.sh + hermes-fix.sh helpers
+#   - the Termux-level `hermes`, `hermes-start` + `hermes-fix` wrappers
 #   - (optional, only if you say yes) the whole container
 #   - the project folder this script was run from
 # Nothing is deleted without confirmation.
@@ -48,14 +49,14 @@ if container_present "$DISTRO"; then
     echo "Removing Hermes Agent inside $DISTRO..."
     proot-distro login "$DISTRO" -- bash -c '
         rm -rf "$HOME/hermes-agent"
-        rm -f  "$HOME/.local/bin/hermes"
+        rm -f  "$HOME/.local/bin/hermes" "$HOME/.local/bin/hermes-start.sh" "$HOME/.local/bin/hermes-fix.sh"
         rmdir  "$HOME/.local/bin" 2>/dev/null || true
         sed -i '\''\#export PATH="$HOME/.local/bin:$PATH"#d'\'' "$HOME/.bashrc" 2>/dev/null || true
     '
 fi
 
 # Termux-level wrapper.
-rm -f "${PREFIX:-/data/data/com.termux/files/usr}/bin/hermes" 2>/dev/null || true
+rm -f "${PREFIX:-/data/data/com.termux/files/usr}/bin/hermes" "${PREFIX:-/data/data/com.termux/files/usr}/bin/hermes-start" "${PREFIX:-/data/data/com.termux/files/usr}/bin/hermes-fix" 2>/dev/null || true
 
 # 2) Optional: whole container.
 echo ""

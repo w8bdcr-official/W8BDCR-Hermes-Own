@@ -1,0 +1,51 @@
+<svg viewBox="0 0 1200 660" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="One chat, turn by turn: you type in Termux, the gateway wakes up, the agent picks its tools, and the answer lands in your chat.">
+  <desc>Fresh W8BDCR Hermes chat-thread diagram, drawn for this repo. A conversation, not a pipeline: user and agent bubbles alternate down the page, with the machine layers as small tags on the left rail.</desc>
+  <defs>
+    <pattern id="dotPaperChat2" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.2" fill="#ffffff" fill-opacity="0.07"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="660" fill="#0b0e14"/>
+  <rect width="1200" height="660" fill="url(#dotPaperChat2)"/>
+
+  <text x="48" y="56" font-family="Consolas, 'Courier New', monospace" font-size="13" letter-spacing="2.5" fill="#4ade80">ONE CHAT, TURN BY TURN</text>
+  <text x="48" y="96" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="30" font-weight="800" fill="#e9edf3">It reads like a conversation — because it is one.</text>
+
+  <!-- left rail: machine layers as tags -->
+  <g font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#71717a">
+    <text x="48" y="170">TERMUX</text>
+    <text x="48" y="290">UBUNTU</text>
+    <text x="48" y="410">PYTHON 3.14</text>
+    <text x="48" y="530">GATEWAY</text>
+  </g>
+  <line x1="150" y1="150" x2="150" y2="560" stroke="#22c55e" stroke-opacity="0.35" stroke-width="2" stroke-dasharray="2 6"/>
+
+  <!-- turn 1: you -->
+  <g font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif">
+    <rect x="180" y="140" width="420" height="76" rx="14" fill="#22c55e"/>
+    <text x="206" y="168" font-size="13" font-weight="700" fill="#052e16">YOU · IN TERMUX</text>
+    <text x="206" y="194" font-size="17" font-weight="700" fill="#052e16">install hermes for me</text>
+    <text x="180" y="240" font-size="12" fill="#71717a">one command — the installer does the rest</text>
+
+    <!-- turn 2: agent -->
+    <rect x="600" y="252" width="552" height="76" rx="14" fill="#1f2937" stroke="#22c55e" stroke-opacity="0.5" stroke-width="1.5"/>
+    <text x="626" y="280" font-size="13" font-weight="700" fill="#4ade80">HERMES · GATEWAY UP</text>
+    <text x="626" y="306" font-size="17" font-weight="700" fill="#e9edf3">Done. Ubuntu is ready, Python 3.14 is in.</text>
+    <text x="600" y="352" font-size="12" fill="#71717a">proot-distro container reused · Pillow conflict already fixed</text>
+
+    <!-- turn 3: you -->
+    <rect x="180" y="364" width="460" height="76" rx="14" fill="#22c55e"/>
+    <text x="206" y="392" font-size="13" font-weight="700" fill="#052e16">YOU</text>
+    <text x="206" y="418" font-size="17" font-weight="700" fill="#052e16">summarise my notes, then remind me at 9</text>
+    <text x="180" y="464" font-size="12" fill="#71717a">a real job — not a question for a chatbot</text>
+
+    <!-- turn 4: agent -->
+    <rect x="600" y="476" width="552" height="76" rx="14" fill="#1f2937" stroke="#4ade80" stroke-width="2"/>
+    <text x="626" y="504" font-size="13" font-weight="700" fill="#4ade80">HERMES · TOOLS AT WORK</text>
+    <text x="626" y="530" font-size="17" font-weight="700" fill="#e9edf3">Summary ready. Reminder set — file + cronjob.</text>
+    <text x="600" y="576" font-size="12" fill="#71717a">the agent picked its own tools and did the work</text>
+  </g>
+
+  <text x="48" y="624" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="14" fill="#a1a1aa">Every turn runs the same way: your words in, the gateway awake, the agent acting, the answer back in your chat.</text>
+</svg>

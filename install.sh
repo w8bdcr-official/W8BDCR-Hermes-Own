@@ -182,6 +182,125 @@ source venv/bin/activate
 exec hermes "$@"
 LAUNCHER_END
 chmod +x "$HOME/.local/bin/hermes"
+
+# One-command daily launcher: gateway first (only if not running), then chat.
+cat > "$HOME/.local/bin/hermes-start.sh" << 'START_END'
+#!/bin/bash
+# W8BDCR Hermes - one-command daily launcher.
+# Starts the gateway first (only if it is not already running),
+# then opens the chat. Exiting the chat ends the session.
+set -euo pipefail
+
+# The agent lives inside the Ubuntu container.
+cd "$HOME/hermes-agent" 2>/dev/null || { echo "Hermes Agent folder not found - run the installer again."; exit 1; }
+[ -d venv ] || { echo "Virtual environment not found - run the installer again."; exit 1; }
+source venv/bin/activate || { echo "Could not activate the virtual environment - run the installer again."; exit 1; }
+
+GATEWAY_PID_FILE="/tmp/hermes-gateway.pid"
+
+# True when the gateway is already running: a live PID file wins,
+# otherwise fall back to pgrep when it exists.
+gateway_running() {
+    if [ -f "$GATEWAY_PID_FILE" ]; then
+        pid="$(cat "$GATEWAY_PID_FILE" 2>/dev/null || true)"
+        if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then return 0; fi
+    fi
+    if command -v pgrep >/dev/null 2>&1; then
+        # The [y] stops pgrep matching its own command line.
+        pgrep -f "hermes gatewa[y]" >/dev/null 2>&1 && return 0
+    fi
+    return 1
+}
+
+if gateway_running; then
+    echo "Gateway is already running."
+else
+    echo "Starting the gateway..."
+    hermes gateway run > /tmp/gateway.log 2>&1 &
+    echo $! > "$GATEWAY_PID_FILE"
+    # Give the gateway a few seconds to come up.
+    sleep 5
+fi
+
+# Chat in the foreground - exiting ends the session.
+exec hermes
+START_END
+chmod +x "$HOME/.local/bin/hermes-start.sh"
+
+# Resume/repair: fix a stuck setup, then re-open setup.
+cat > "$HOME/.local/bin/hermes-fix.sh" << 'FIX_END'
+#!/bin/bash
+# W8BDCR Hermes - resume/repair command.
+# Fixes a stuck setup without wiping your config, then re-opens
+# setup so you can continue from where it stopped.
+# Your config in /root/.hermes is never touched.
+set -uo pipefail
+
+cd "$HOME/hermes-agent" 2>/dev/null || { echo "Hermes Agent folder not found - run the installer again."; exit 1; }
+[ -d venv ] || { echo "Virtual environment not found - run the installer again."; exit 1; }
+source venv/bin/activate || { echo "Could not activate the virtual environment - run the installer again."; exit 1; }
+
+echo "Repairing your Hermes setup..."
+
+# pip helper: uv pip when uv is present, plain pip otherwise.
+run_pip() {
+    if command -v uv >/dev/null 2>&1; then
+        uv pip "$@"
+    else
+        venv/bin/python -m pip --break-system-packages "$@" \
+            || venv/bin/python -m pip "$@"
+    fi
+}
+
+# uv is needed for the Pillow override below - install it if missing.
+if ! command -v uv >/dev/null 2>&1; then
+    echo "Installing uv..."
+    curl -LsSf https://astral.sh/uv/install.sh | sh >/dev/null 2>&1 || true
+    export PATH="$HOME/.local/bin:$PATH"
+    command -v uv >/dev/null 2>&1 || python3 -m pip install uv >/dev/null 2>&1 || true
+fi
+
+# 1) Known setup-breakers: install them explicitly.
+echo "Reinstalling ruamel.yaml and python-dotenv..."
+run_pip install "ruamel.yaml" "python-dotenv" || echo "WARNING: could not reinstall ruamel.yaml / python-dotenv"
+
+# 2) Re-apply the Pillow 13 override (upstream pins clash: Pillow 13 vs 12).
+echo "Re-applying the Pillow 13 override..."
+printf 'pillow==13.0.0\n' > overrides.txt
+if command -v uv >/dev/null 2>&1; then
+    run_pip install --override overrides.txt "pillow==13.0.0" || echo "WARNING: Pillow override did not apply"
+else
+    run_pip install "pillow==13.0.0" || echo "WARNING: Pillow install did not apply"
+fi
+
+# 3) Reinstall the agent package ONLY if it is missing or broken.
+# Your config in /root/.hermes is kept - this only fixes the package.
+if ! hermes --version >/dev/null 2>&1; then
+    echo "Hermes package looks broken - reinstalling it (config is kept)..."
+    if command -v uv >/dev/null 2>&1; then
+        run_pip install -e ".[termux]" --override overrides.txt \
+            || run_pip install -e "." --override overrides.txt \
+            || echo "WARNING: reinstall failed"
+    else
+        run_pip install -e ".[termux]" \
+            || run_pip install -e "." \
+            || echo "WARNING: reinstall failed"
+    fi
+fi
+
+# 4) Verify.
+echo "Verifying..."
+if hermes --version; then
+    echo "Hermes is working again."
+else
+    echo "WARNING: hermes --version is still failing - setup will show the error."
+fi
+hermes doctor </dev/null || true
+
+echo "Opening setup so you can continue from where it stopped."
+exec hermes setup
+FIX_END
+chmod +x "$HOME/.local/bin/hermes-fix.sh"
 if ! echo "$PATH" | grep -q "$HOME/.local/bin"; then
     echo 'export PATH="$HOME/.local/bin:$PATH"' >> "$HOME/.bashrc"
 fi
@@ -202,15 +321,32 @@ exec proot-distro login "$DISTRO" -- bash -lc 'source ~/hermes-agent/venv/bin/ac
 WRAPPER_END
 chmod +x "$PREFIX/bin/hermes" 2>/dev/null || true
 
+cat > "$PREFIX/bin/hermes-start" << WRAPPER_END
+#!/data/data/com.termux/files/usr/bin/bash
+# W8BDCR Hermes - one-command daily launcher (Termux wrapper)
+exec proot-distro login "$DISTRO" -- bash -lc 'exec bash "\$HOME/.local/bin/hermes-start.sh"' hermes-start
+WRAPPER_END
+chmod +x "$PREFIX/bin/hermes-start" 2>/dev/null || true
+
+cat > "$PREFIX/bin/hermes-fix" << WRAPPER_END
+#!/data/data/com.termux/files/usr/bin/bash
+# W8BDCR Hermes - resume/repair command (Termux wrapper)
+exec proot-distro login "$DISTRO" -- bash -lc 'exec bash "\$HOME/.local/bin/hermes-fix.sh"' hermes-fix
+WRAPPER_END
+chmod +x "$PREFIX/bin/hermes-fix" 2>/dev/null || true
+
 echo ""
 say "=============================================="
 say "  W8BDCR Hermes installed successfully!"
 say "=============================================="
 echo ""
 echo "Quick start (in Termux, just type):"
-echo "  hermes setup    # first-time setup"
-echo "  hermes          # start chatting"
-echo "  hermes gateway  # run the gateway"
+echo "  hermes setup    # first-time setup (once)"
+echo "  hermes-start    # daily run - gateway + chat in one command"
+echo "  hermes-fix      # setup stuck? repairs it and re-opens setup"
+echo ""
+echo "Already installed? Re-run this installer once - it updates"
+echo "in place and adds hermes-start and hermes-fix."
 echo ""
 echo "Manual path (if the wrapper is missing):"
 echo "  proot-distro login $DISTRO"

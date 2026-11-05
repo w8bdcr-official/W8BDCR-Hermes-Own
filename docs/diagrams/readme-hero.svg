@@ -1,0 +1,99 @@
+<svg viewBox="0 0 1200 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="W8BDCR Hermes hero: a phone chat with the agent — you say Hi, Hermes answers — the agent in the middle, its tools and providers around it, one command to install.">
+  <desc>Fresh W8BDCR Hermes hero, drawn for this repo. A phone chat on the left, the agent emblem in the middle, tools and providers fanning out on the right, terminal strip and four proof chips along the bottom.</desc>
+  <defs>
+    <pattern id="dotPaperHero2" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.2" fill="#ffffff" fill-opacity="0.07"/>
+    </pattern>
+    <radialGradient id="glowHero2" cx="62%" cy="38%" r="60%">
+      <stop offset="0%" stop-color="#22c55e" stop-opacity="0.22"/>
+      <stop offset="55%" stop-color="#16a34a" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="gradEmblem2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22c55e"/>
+      <stop offset="100%" stop-color="#86efac"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="560" fill="#0b0e14"/>
+  <rect width="1200" height="560" fill="url(#dotPaperHero2)"/>
+  <rect width="1200" height="560" fill="url(#glowHero2)"/>
+
+  <!-- kicker -->
+  <text x="48" y="58" font-family="Consolas, 'Courier New', monospace" font-size="13" letter-spacing="2.5" fill="#4ade80">W8BDCR HERMES · TERMUX · ANDROID</text>
+  <text x="1152" y="58" text-anchor="end" font-family="Consolas, 'Courier New', monospace" font-size="12" letter-spacing="1.5" fill="#71717a">PHONE-TESTED 2026-11-05</text>
+
+  <!-- headline -->
+  <text x="48" y="128" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="52" font-weight="800" fill="#e9edf3">Talk to your phone.</text>
+  <text x="48" y="186" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="52" font-weight="800" fill="#4ade80">It talks back.</text>
+
+  <!-- phone mockup with the real verified exchange -->
+  <g>
+    <rect x="48" y="216" width="330" height="196" rx="18" fill="#111827" stroke="#22c55e" stroke-opacity="0.55" stroke-width="1.5"/>
+    <rect x="48" y="216" width="330" height="34" rx="18" fill="#161b22"/>
+    <rect x="48" y="234" width="330" height="16" fill="#161b22"/>
+    <circle cx="72" cy="233" r="4" fill="#22c55e"/>
+    <text x="88" y="238" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#c9d1d9">hermes — nemotron-3-ultra</text>
+    <rect x="196" y="266" width="150" height="38" rx="12" fill="#22c55e"/>
+    <text x="271" y="291" text-anchor="middle" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="16" font-weight="700" fill="#052e16">HIw</text>
+    <rect x="66" y="316" width="280" height="62" rx="12" fill="#1f2937"/>
+    <text x="82" y="342" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="15" fill="#e9edf3">Hello! How can I help</text>
+    <text x="82" y="364" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="15" fill="#e9edf3">you today?</text>
+    <text x="66" y="402" font-family="Consolas, 'Courier New', monospace" font-size="11" fill="#71717a">the first chat that worked — free model, $0</text>
+  </g>
+
+  <!-- agent emblem -->
+  <g>
+    <circle cx="600" cy="308" r="86" fill="#0f1f14" stroke="url(#gradEmblem2)" stroke-width="3"/>
+    <circle cx="600" cy="308" r="66" fill="none" stroke="#22c55e" stroke-opacity="0.35" stroke-width="1.5" stroke-dasharray="4 6"/>
+    <!-- drawn robot face -->
+    <rect x="562" y="282" width="76" height="56" rx="14" fill="url(#gradEmblem2)"/>
+    <circle cx="584" cy="306" r="7" fill="#052e16"/>
+    <circle cx="616" cy="306" r="7" fill="#052e16"/>
+    <rect x="582" y="322" width="36" height="5" rx="2.5" fill="#052e16"/>
+    <line x1="600" y1="282" x2="600" y2="268" stroke="#4ade80" stroke-width="3"/>
+    <circle cx="600" cy="264" r="4" fill="#4ade80"/>
+    <text x="600" y="428" text-anchor="middle" font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" font-size="20" font-weight="800" fill="#e9edf3">HERMES</text>
+    <text x="600" y="452" text-anchor="middle" font-family="Consolas, 'Courier New', monospace" font-size="12" fill="#a1a1aa">your agent · 20 tools · one chat away</text>
+  </g>
+
+  <!-- tools + providers fanning out on the right -->
+  <g font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif">
+    <rect x="742" y="216" width="190" height="52" rx="12" fill="#161b22" stroke="#22c55e" stroke-opacity="0.5" stroke-width="1.5"/>
+    <text x="762" y="240" font-size="15" font-weight="800" fill="#e9edf3">terminal</text>
+    <text x="762" y="258" font-size="11" fill="#a1a1aa">runs your commands</text>
+    <rect x="962" y="216" width="190" height="52" rx="12" fill="#161b22" stroke="#22c55e" stroke-opacity="0.5" stroke-width="1.5"/>
+    <text x="982" y="240" font-size="15" font-weight="800" fill="#e9edf3">files</text>
+    <text x="982" y="258" font-size="11" fill="#a1a1aa">reads &amp; writes</text>
+    <rect x="742" y="284" width="190" height="52" rx="12" fill="#161b22" stroke="#22c55e" stroke-opacity="0.5" stroke-width="1.5"/>
+    <text x="762" y="308" font-size="15" font-weight="800" fill="#e9edf3">web + vision</text>
+    <text x="762" y="326" font-size="11" fill="#a1a1aa">searches &amp; sees</text>
+    <rect x="962" y="284" width="190" height="52" rx="12" fill="#161b22" stroke="#22c55e" stroke-opacity="0.5" stroke-width="1.5"/>
+    <text x="982" y="308" font-size="15" font-weight="800" fill="#e9edf3">memory</text>
+    <text x="982" y="326" font-size="11" fill="#a1a1aa">remembers sessions</text>
+    <rect x="742" y="352" width="190" height="52" rx="12" fill="#161b22" stroke="#4ade80" stroke-opacity="0.6" stroke-width="1.5"/>
+    <text x="762" y="376" font-size="15" font-weight="800" fill="#4ade80">OpenRouter ✓</text>
+    <text x="762" y="394" font-size="11" fill="#a1a1aa">free model verified</text>
+    <rect x="962" y="352" width="190" height="52" rx="12" fill="#161b22" stroke="#22c55e" stroke-opacity="0.5" stroke-width="1.5"/>
+    <text x="982" y="376" font-size="15" font-weight="800" fill="#e9edf3">+ 17 providers</text>
+    <text x="982" y="394" font-size="11" fill="#a1a1aa">switch anytime</text>
+  </g>
+
+  <!-- terminal strip -->
+  <g>
+    <rect x="48" y="440" width="1104" height="44" rx="10" fill="#111827" stroke="#ffffff" stroke-opacity="0.08" stroke-width="1"/>
+    <text x="76" y="468" font-family="Consolas, 'Courier New', monospace" font-size="15" fill="#4ade80">$ curl -fsSL https://raw.githubusercontent.com/w8bdcr-official/W8BDCR-Hermes-Own/main/install.sh | bash</text>
+  </g>
+
+  <!-- proof chips: four, not six -->
+  <g font-family="Inter, 'Segoe UI', Arial, Helvetica, system-ui, sans-serif" text-anchor="middle">
+    <rect x="48" y="500" width="264" height="44" rx="12" fill="#0f1f14" stroke="#22c55e" stroke-opacity="0.55" stroke-width="1.5"/>
+    <text x="180" y="528" font-size="15" font-weight="800" fill="#4ade80">Phone-tested ✓</text>
+    <rect x="328" y="500" width="264" height="44" rx="12" fill="#0f1f14" stroke="#22c55e" stroke-opacity="0.55" stroke-width="1.5"/>
+    <text x="460" y="528" font-size="15" font-weight="800" fill="#4ade80">20 tools at startup</text>
+    <rect x="608" y="500" width="264" height="44" rx="12" fill="#0f1f14" stroke="#22c55e" stroke-opacity="0.55" stroke-width="1.5"/>
+    <text x="740" y="528" font-size="15" font-weight="800" fill="#4ade80">Python 3.14.4</text>
+    <rect x="888" y="500" width="264" height="44" rx="12" fill="#0f1f14" stroke="#fdcb6e" stroke-opacity="0.55" stroke-width="1.5"/>
+    <text x="1020" y="528" font-size="15" font-weight="800" fill="#fdcb6e">$0 to start</text>
+  </g>
+</svg>

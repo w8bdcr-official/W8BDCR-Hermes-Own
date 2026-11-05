@@ -1,0 +1,18 @@
+<svg width="1200" height="320" viewBox="0 0 1200 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Free ways to run Hermes — zero cost to start">
+<title>Free ways to run Hermes — zero cost to start</title>
+<rect width="1200" height="320" rx="16" fill="#0b1220"/>
+<text x="40" y="64" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="32" fill="#e5e7eb" text-anchor="start" font-weight="700">$0 to start — free providers</text>
+<rect x="40" y="92" width="360" height="150" rx="12" fill="#111827" stroke="#22c55e" stroke-width="2"/>
+<text x="64" y="134" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="26" fill="#e5e7eb" text-anchor="start" font-weight="700">OpenRouter  :free</text>
+<text x="64" y="172" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#22c55e" text-anchor="start" font-weight="700">Verified working</text>
+<text x="64" y="208" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="18" fill="#94a3b8" text-anchor="start">nvidia/nemotron-3-ultra-550b</text>
+<rect x="420" y="92" width="360" height="150" rx="12" fill="#111827" stroke="#38bdf8" stroke-width="2"/>
+<text x="444" y="134" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="26" fill="#e5e7eb" text-anchor="start" font-weight="700">Atria</text>
+<text x="444" y="172" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#38bdf8" text-anchor="start" font-weight="700">Free preview</text>
+<text x="444" y="208" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="18" fill="#94a3b8" text-anchor="start">Atria-Dawn-Preview · 256K context</text>
+<rect x="800" y="92" width="360" height="150" rx="12" fill="#111827" stroke="#a78bfa" stroke-width="2"/>
+<text x="824" y="134" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="26" fill="#e5e7eb" text-anchor="start" font-weight="700">Inception</text>
+<text x="824" y="172" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#a78bfa" text-anchor="start" font-weight="700">Signup grant</text>
+<text x="824" y="208" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="18" fill="#94a3b8" text-anchor="start">mercury-2.5 · mercury-2</text>
+<text x="40" y="286" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="19" fill="#94a3b8" text-anchor="start">Free quotas change with providers — the setup list is the source of truth.</text>
+</svg>

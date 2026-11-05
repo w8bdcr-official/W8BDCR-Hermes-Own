@@ -1,0 +1,20 @@
+<svg width="1200" height="560" viewBox="0 0 1200 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hermes chat session on Termux — the verified exchange">
+<title>Hermes chat session on Termux — the verified exchange</title>
+<rect width="1200" height="560" rx="16" fill="#0b1220"/>
+<rect x="24" y="24" width="1152" height="512" rx="12" fill="#111827"/>
+<rect x="24" y="24" width="1152" height="52" rx="12" fill="#1f2937"/>
+<circle cx="52" cy="50" r="8" fill="#ef4444"/>
+<circle cx="80" cy="50" r="8" fill="#f59e0b"/>
+<circle cx="108" cy="50" r="8" fill="#22c55e"/>
+<text x="160" y="57" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="22" fill="#94a3b8" text-anchor="start">Termux  —  hermes</text>
+<text x="56" y="130" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="26" fill="#f59e0b" text-anchor="start" font-weight="700">NOUS HERMES — AI Agent Framework</text>
+<text x="56" y="172" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="21" fill="#94a3b8" text-anchor="start">Hermes Agent  vgit.c55af2c  (2026.9.24)</text>
+<text x="56" y="218" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="22" fill="#22c55e" text-anchor="start">●  nemotron-3-ultra-550b-a55b-…  —  20 tools  —  provider: openrouter</text>
+<text x="56" y="264" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="21" fill="#e5e7eb" text-anchor="start">Welcome to Hermes Agent!  Type your message or /help for commands.</text>
+<text x="56" y="320" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#22c55e" text-anchor="start" font-weight="700">&gt;  HIw</text>
+<text x="56" y="370" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#f59e0b" text-anchor="start" font-weight="700">Hermes</text>
+<text x="56" y="408" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="24" fill="#e5e7eb" text-anchor="start">Hello!  How can I help you today?</text>
+<text x="56" y="460" font-family="ui-monospace, 'SF Mono', Menlo, Consolas, monospace" font-size="20" fill="#94a3b8" text-anchor="start">—  51.7s  ·  2:12 PM</text>
+<rect x="56" y="492" width="560" height="44" rx="12" fill="#0b1220" stroke="#22c55e" stroke-width="2"/>
+<text x="76" y="521" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" fill="#22c55e" text-anchor="start" font-weight="700">✓  Verified on a real phone — 2026-11-05</text>
+</svg>

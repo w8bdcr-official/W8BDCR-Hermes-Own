@@ -1,0 +1,22 @@
+<svg width="1200" height="320" viewBox="0 0 1200 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Reasoning effort — eight levels, pick yours">
+<title>Reasoning effort — eight levels, pick yours</title>
+<rect width="1200" height="320" rx="16" fill="#0b1220"/>
+<text x="40" y="62" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="30" fill="#e5e7eb" text-anchor="start" font-weight="700">Reasoning effort — pick your level</text>
+<rect x="40" y="100" width="250" height="56" rx="28" fill="#111827" stroke="#1f2937" stroke-width="2"/>
+<text x="165" y="136" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" fill="#e5e7eb" text-anchor="middle">minimal</text>
+<rect x="310" y="100" width="250" height="56" rx="28" fill="#111827" stroke="#1f2937" stroke-width="2"/>
+<text x="435" y="136" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" fill="#e5e7eb" text-anchor="middle">low</text>
+<rect x="580" y="100" width="250" height="56" rx="28" fill="#111827" stroke="#1f2937" stroke-width="2"/>
+<text x="705" y="136" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" fill="#e5e7eb" text-anchor="middle">medium</text>
+<rect x="850" y="100" width="250" height="56" rx="28" fill="#22c55e"/>
+<text x="975" y="136" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" fill="#052e12" text-anchor="middle" font-weight="700">high  ✓ in use</text>
+<rect x="40" y="176" width="250" height="56" rx="28" fill="#111827" stroke="#1f2937" stroke-width="2"/>
+<text x="165" y="212" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" fill="#e5e7eb" text-anchor="middle">xhigh</text>
+<rect x="310" y="176" width="250" height="56" rx="28" fill="#111827" stroke="#1f2937" stroke-width="2"/>
+<text x="435" y="212" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" fill="#e5e7eb" text-anchor="middle">max</text>
+<rect x="580" y="176" width="250" height="56" rx="28" fill="#111827" stroke="#1f2937" stroke-width="2"/>
+<text x="705" y="212" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" fill="#e5e7eb" text-anchor="middle">ultra</text>
+<rect x="850" y="176" width="250" height="56" rx="28" fill="#111827" stroke="#1f2937" stroke-width="2"/>
+<text x="975" y="212" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="21" fill="#e5e7eb" text-anchor="middle">disable reasoning</text>
+<text x="40" y="286" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="19" fill="#94a3b8" text-anchor="start">Verified setting on the phone test: high.</text>
+</svg>

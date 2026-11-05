@@ -1,0 +1,31 @@
+<svg width="1200" height="480" viewBox="0 0 1200 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hermes vs a plain chat box">
+<title>Hermes vs a plain chat box</title>
+<rect width="1200" height="480" rx="16" fill="#0b1220"/>
+<text x="40" y="62" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="30" fill="#e5e7eb" text-anchor="start" font-weight="700">Hermes vs a plain chat box</text>
+<text x="760" y="62" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="24" fill="#22c55e" text-anchor="middle" font-weight="700">Hermes</text>
+<text x="1020" y="62" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="24" fill="#94a3b8" text-anchor="middle" font-weight="700">Plain chat</text>
+<rect x="40" y="110" width="1120" height="52" rx="12" fill="#111827"/>
+<text x="64" y="144" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#e5e7eb" text-anchor="start">Acts with tools, not just words</text>
+<text x="750" y="146" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="28" fill="#22c55e" text-anchor="start" font-weight="700">✓</text>
+<text x="1010" y="146" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="28" fill="#94a3b8" text-anchor="start" font-weight="700">✗</text>
+<rect x="40" y="166" width="1120" height="52" rx="12" fill="#0b1220"/>
+<text x="64" y="200" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#e5e7eb" text-anchor="start">20 built-in toolsets</text>
+<text x="750" y="202" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="28" fill="#22c55e" text-anchor="start" font-weight="700">✓</text>
+<text x="1010" y="202" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="28" fill="#94a3b8" text-anchor="start" font-weight="700">✗</text>
+<rect x="40" y="222" width="1120" height="52" rx="12" fill="#111827"/>
+<text x="64" y="256" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#e5e7eb" text-anchor="start">Reads &amp; writes files, runs commands</text>
+<text x="750" y="258" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="28" fill="#22c55e" text-anchor="start" font-weight="700">✓</text>
+<text x="1010" y="258" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="28" fill="#94a3b8" text-anchor="start" font-weight="700">✗</text>
+<rect x="40" y="278" width="1120" height="52" rx="12" fill="#0b1220"/>
+<text x="64" y="312" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#e5e7eb" text-anchor="start">Remembers across sessions</text>
+<text x="750" y="314" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="28" fill="#22c55e" text-anchor="start" font-weight="700">✓</text>
+<text x="1010" y="314" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="28" fill="#94a3b8" text-anchor="start" font-weight="700">✗</text>
+<rect x="40" y="334" width="1120" height="52" rx="12" fill="#111827"/>
+<text x="64" y="368" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#e5e7eb" text-anchor="start">Runs scheduled jobs</text>
+<text x="750" y="370" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="28" fill="#22c55e" text-anchor="start" font-weight="700">✓</text>
+<text x="1010" y="370" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="28" fill="#94a3b8" text-anchor="start" font-weight="700">✗</text>
+<rect x="40" y="390" width="1120" height="52" rx="12" fill="#0b1220"/>
+<text x="64" y="424" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="22" fill="#e5e7eb" text-anchor="start">Runs on your phone, in Termux</text>
+<text x="750" y="426" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="28" fill="#22c55e" text-anchor="start" font-weight="700">✓</text>
+<text x="1010" y="426" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="28" fill="#94a3b8" text-anchor="start" font-weight="700">✗</text>
+</svg>

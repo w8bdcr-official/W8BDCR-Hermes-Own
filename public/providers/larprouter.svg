@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" role="img" aria-label="LarpRouter logo tile">
+  <desc>Fresh W8BDCR tile for LarpRouter — drawn for the Hermes-Own README. Not copied from any other repo.</desc>
+  <rect width="64" height="64" rx="14" fill="#D97706"/>
+  <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#ffffff" stroke-opacity="0.25" stroke-width="1"/>
+  <text x="32" y="43" text-anchor="middle" font-family="Inter, 'Segoe UI', Arial, sans-serif" font-size="30" font-weight="800" fill="#ffffff">L</text>
+  <circle cx="50" cy="14" r="4" fill="#ffffff" fill-opacity="0.85"/>
+</svg>
