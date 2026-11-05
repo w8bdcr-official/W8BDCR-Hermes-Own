@@ -161,6 +161,10 @@ if ! run_pip install -e ".[all]"; then
     fi
 fi
 
+# hermes-cli imports ruamel.yaml at startup but the extras above do not
+# always pull it in — install it explicitly so `hermes setup` works.
+run_pip install "ruamel.yaml" || echo "WARNING: could not install ruamel.yaml"
+
 # Launcher inside Ubuntu.
 mkdir -p "$HOME/.local/bin"
 cat > "$HOME/.local/bin/hermes" << 'LAUNCHER_END'
