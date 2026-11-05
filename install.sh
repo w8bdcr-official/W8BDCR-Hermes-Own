@@ -183,19 +183,15 @@ exec hermes "$@"
 LAUNCHER_END
 chmod +x "$HOME/.local/bin/hermes"
 
-# One-command daily launcher: gateway first (only if not running), then chat.
-cat > "$HOME/.local/bin/hermes-start.sh" << 'START_END'
+# Shared helper: make sure the gateway is running (only if it is not).
+# Every hermes command uses this - the server starts itself when needed.
+# Assumes the venv is already activated by the caller (hermes is on PATH).
+# Safe to run as a child script: it only prints short lines, exits 0.
+cat > "$HOME/.local/bin/hermes-ensure-gateway.sh" << 'ENSURE_END'
 #!/bin/bash
-# W8BDCR Hermes - one-command daily launcher.
-# Starts the gateway first (only if it is not already running),
-# then opens the chat. Exiting the chat ends the session.
-set -euo pipefail
-
-# The agent lives inside the Ubuntu container.
-cd "$HOME/hermes-agent" 2>/dev/null || { echo "Hermes Agent folder not found - run the installer again."; exit 1; }
-[ -d venv ] || { echo "Virtual environment not found - run the installer again."; exit 1; }
-source venv/bin/activate || { echo "Could not activate the virtual environment - run the installer again."; exit 1; }
-
+# W8BDCR Hermes - shared gateway check.
+# Starts the gateway first (only if it is not already running).
+# Used by `hermes` (any command) and by `hermes-start`.
 GATEWAY_PID_FILE="/tmp/hermes-gateway.pid"
 
 # True when the gateway is already running: a live PID file wins,
@@ -212,6 +208,7 @@ gateway_running() {
     return 1
 }
 
+cd "$HOME/hermes-agent" 2>/dev/null || true
 if gateway_running; then
     echo "Gateway is already running."
 else
@@ -221,6 +218,25 @@ else
     # Give the gateway a few seconds to come up.
     sleep 5
 fi
+ENSURE_END
+chmod +x "$HOME/.local/bin/hermes-ensure-gateway.sh"
+
+# One-command daily launcher: gateway first (only if not running), then chat.
+cat > "$HOME/.local/bin/hermes-start.sh" << 'START_END'
+#!/bin/bash
+# W8BDCR Hermes - one-command daily launcher.
+# Starts the gateway first (only if it is not already running),
+# then opens the chat. Exiting the chat ends the session.
+set -euo pipefail
+
+# The agent lives inside the Ubuntu container.
+cd "$HOME/hermes-agent" 2>/dev/null || { echo "Hermes Agent folder not found - run the installer again."; exit 1; }
+[ -d venv ] || { echo "Virtual environment not found - run the installer again."; exit 1; }
+source venv/bin/activate || { echo "Could not activate the virtual environment - run the installer again."; exit 1; }
+
+# Shared gateway check - starts the gateway only if it is not running.
+# The `|| true` keeps the chat opening even if the check hiccups.
+bash "$HOME/.local/bin/hermes-ensure-gateway.sh" || true
 
 # Chat in the foreground - exiting ends the session.
 exec hermes
@@ -317,7 +333,10 @@ proot-distro login "$DISTRO" -- bash "$INNER" || { echo -e "${RED}Install inside
 cat > "$PREFIX/bin/hermes" << WRAPPER_END
 #!/data/data/com.termux/files/usr/bin/bash
 # W8BDCR Hermes - Termux wrapper
-exec proot-distro login "$DISTRO" -- bash -lc 'source ~/hermes-agent/venv/bin/activate && exec hermes "\$@"' hermes "\$@"
+# Any hermes command just works: the gateway starts itself when needed.
+# Only "hermes gateway ..." runs as-is (no auto-start inside a gateway
+# command - it IS the gateway).
+exec proot-distro login "$DISTRO" -- bash -lc 'source ~/hermes-agent/venv/bin/activate; if [ "\${1:-}" != "gateway" ] && [ -f "\$HOME/.local/bin/hermes-ensure-gateway.sh" ]; then bash "\$HOME/.local/bin/hermes-ensure-gateway.sh"; fi; exec hermes "\$@"' hermes "\$@"
 WRAPPER_END
 chmod +x "$PREFIX/bin/hermes" 2>/dev/null || true
 
@@ -342,7 +361,8 @@ say "=============================================="
 echo ""
 echo "Quick start (in Termux, just type):"
 echo "  hermes setup    # first-time setup (once)"
-echo "  hermes-start    # daily run - gateway + chat in one command"
+echo "  hermes          # just use it - the server starts itself when needed"
+echo "  hermes-start    # explicit full run - gateway + chat in one command"
 echo "  hermes-fix      # setup stuck? repairs it and re-opens setup"
 echo ""
 echo "Already installed? Re-run this installer once - it updates"

@@ -3,7 +3,7 @@
 # Removes, in order:
 #   - hermes-agent source + venv inside the container
 #   - the ~/.local/bin/hermes launcher + the PATH line in .bashrc
-#   - the ~/.local/bin/hermes-start.sh + hermes-fix.sh helpers
+#   - the ~/.local/bin/hermes-start.sh + hermes-fix.sh + hermes-ensure-gateway.sh helpers
 #   - the Termux-level `hermes`, `hermes-start` + `hermes-fix` wrappers
 #   - (optional, only if you say yes) the whole container
 #   - the project folder this script was run from
@@ -49,7 +49,7 @@ if container_present "$DISTRO"; then
     echo "Removing Hermes Agent inside $DISTRO..."
     proot-distro login "$DISTRO" -- bash -c '
         rm -rf "$HOME/hermes-agent"
-        rm -f  "$HOME/.local/bin/hermes" "$HOME/.local/bin/hermes-start.sh" "$HOME/.local/bin/hermes-fix.sh"
+        rm -f  "$HOME/.local/bin/hermes" "$HOME/.local/bin/hermes-start.sh" "$HOME/.local/bin/hermes-fix.sh" "$HOME/.local/bin/hermes-ensure-gateway.sh"
         rmdir  "$HOME/.local/bin" 2>/dev/null || true
         sed -i '\''\#export PATH="$HOME/.local/bin:$PATH"#d'\'' "$HOME/.bashrc" 2>/dev/null || true
     '

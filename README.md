@@ -188,7 +188,7 @@ The agent tells you it is alive the moment it starts — the startup line shows 
 nemotron-3-ultra-550b-a55b-… — 20 tools — provider: openrouter
 ```
 
-If that line is missing, the gateway is not running — run `hermes-start` (Quick Start, Step 3).
+If that line is missing, the gateway is not running — run any `hermes` command and it starts itself (Quick Start, Step 3).
 
 ## ✨ What's New
 
@@ -200,7 +200,7 @@ Recent highlights from the phone test on **2026-11-05**. Full history in the rep
 - **🎛️ `[termux]` profile first** — the installer installs the Termux extras before anything else, so desktop extras that cannot build on Android are never pulled in.
 - **📦 `ruamel.yaml` fix** — installed explicitly so `hermes setup` no longer crashes on first run.
 - **🤖 OpenRouter verified** — the free model `nvidia/nemotron-3-ultra-550b-a55b:free` answered "HIw" with "Hello! How can I help you today?" — 20 tools loaded, reasoning high.
-- **🚀 `hermes-start` and `hermes-fix` (new — phone test pending)** — `hermes-start` runs the whole project from one small command (gateway + chat), and `hermes-fix` repairs a stuck setup and re-opens setup from where it stopped, without wiping your config.
+- **🚀 `hermes-start` and `hermes-fix` (new — phone test pending)** — `hermes-start` runs the whole project from one small command (gateway + chat), and `hermes-fix` repairs a stuck setup and re-opens setup from where it stopped, without wiping your config. And now any `hermes` command starts the gateway itself when needed — no server-starting hassle at all.
 
 ## 🤖 Compatible CLIs & Coding Agents
 
@@ -444,7 +444,7 @@ Point Hermes at http://localhost:20128/v1 and let your own OmniRoute server feed
 
 ### ⌨️ A real CLI (not just start)
 
-`hermes-start`, `hermes-fix`, `hermes setup`, `hermes gateway run`, `hermes`, `hermes chat -q`, `hermes setup model` — the whole agent from seven commands.
+`hermes-start`, `hermes-fix`, `hermes setup`, `hermes gateway run`, `hermes`, `hermes chat -q`, `hermes setup model` — the whole agent from seven commands, and any `hermes` command starts the gateway itself when needed.
 
 ### 🤝 Connect an agent — and it delegates for you
 
@@ -460,7 +460,7 @@ You type in Termux, the gateway wakes the agent, the agent plans with its 20 too
 
 # ⚡ Quick Start
 
-Three steps. Daily use is one small command — `hermes-start` starts the gateway and opens the chat for you.
+Three steps. After setup, just use it — any `hermes` command starts the server itself when needed.
 
 ## STEP 1 · Install the agent
 
@@ -469,7 +469,8 @@ Three steps. Daily use is one small command — `hermes-start` starts the gatewa
 # › One command in Termux — downloads and runs the W8BDCR installer.
 # › It reuses your Ubuntu container and your existing setup if you run it again.
 # › Already installed? Re-run this once — it updates in place
-# › and adds the hermes-start and hermes-fix commands.
+# › and adds hermes-start and hermes-fix — plus every hermes command
+# › now starts the gateway itself when needed.
 curl -fsSL https://raw.githubusercontent.com/w8bdcr-official/W8BDCR-Hermes-Own/main/install.sh | bash
 ```
 
@@ -485,14 +486,15 @@ hermes setup
 
 > 💡 Tip: the setup model list shows paid models only. For a free model, choose **Enter custom model name** and type the full model id — that is how the verified OpenRouter free model was set.
 
-## STEP 3 · Daily run — one small command
+## STEP 3 · Just use it — any command works
 
 ```bash
-# ══ STEP 3 · Daily run — one small command ══
-# › Starts the gateway first (only if it is not already running),
-# › then opens the chat. Exiting the chat ends the session.
-# › Session died? Just run hermes-start again — your setup is kept.
-hermes-start
+# ══ STEP 3 · Just use it — the server starts itself ══
+# › Any hermes command just works — the gateway starts itself
+# › when needed, then your command runs. No server to start by hand.
+# › Session died? Just run hermes again — your setup is kept.
+# › Want the full run in one go? hermes-start does gateway + chat together.
+hermes
 ```
 
 ### 📦 More commands
@@ -500,7 +502,8 @@ hermes-start
 | Command | What it does |
 |---|---|
 | `hermes gateway run > /tmp/gateway.log 2>&1 &` | Gateway on its own (only if you run the pieces separately) |
-| `hermes` | Chat on its own (needs the gateway already running) |
+| `hermes` | Chat — the gateway starts itself when needed |
+| `hermes-start` | Explicit full run — gateway + chat in one command |
 | `hermes setup model` | Switch provider or model anytime |
 | `hermes-fix` | Setup stuck? Repairs it and re-opens setup from where it stopped |
 | `proot-distro login ubuntu` | Log back into Ubuntu by hand (after a dead session) |
@@ -555,7 +558,7 @@ Made a video about Hermes? Open an issue with the link — we'll feature it here
 
 ### 📘 Getting Started
 
-Start with Install & run, then Quick Start — daily use is one command: `hermes-start`.
+Start with Install & run, then Quick Start — after setup, just run any `hermes` command; the server starts itself.
 
 ### 🔄 The Moving Parts
 
@@ -569,11 +572,11 @@ Verified statuses are in the providers table above. A provider marked "not yet i
 
 | Problem | Cause | Fix |
 |---|---|---|
-| `Gateway connection failed; no local fallback` | The gateway is not running | Run `hermes-start` — it starts the gateway, then the chat (see Quick Start above) |
+| `Gateway connection failed; no local fallback` | The gateway is not running | Just run any `hermes` command — it starts the gateway itself, then runs your command (see Quick Start above) |
 | `hermes setup` crashes with `No module named 'ruamel'` / `'dotenv'` | The venv was built with Python 3.13 or older — upstream deps are pinned to Python 3.14+, so pip installed zero dependencies | The installer now enforces Python 3.14+ (via `uv` when needed). Re-run the installer. |
 | Install fails on a Pillow conflict | Upstream core pins `Pillow==13.0.0` while `browser-harness` requires `pillow==12.3.0` | The installer resolves it with `uv pip install --override` (`pillow==13.0.0`) and installs the `[termux]` profile first. Re-run the installer. |
 | Chat returns HTTP 402 `Insufficient account credit` | The provider account balance is $0 (seen with LarpRouter) | Top up that provider, or switch provider with `hermes setup model` — OpenRouter's free model is verified working. |
-| Session died and setup seems lost | It is not lost — only the session ended | Just run `hermes-start` again — it restarts the gateway and opens the chat. Config and keys are still in `/root/.hermes/`. |
+| Session died and setup seems lost | It is not lost — only the session ended | Just run `hermes` again — the gateway starts itself and the chat opens. Config and keys are still in `/root/.hermes/`. |
 | Signup refused at a provider (seen with Groq) | The provider blocks the signup on its side | Try a different login method or network later, or use a provider whose key you already have. |
 
 ### 📋 Project & Quality
