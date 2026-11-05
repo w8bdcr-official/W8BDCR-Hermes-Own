@@ -9,7 +9,8 @@ Same working process, written by W8BDCR:
 1. Update Termux packages
 2. Prepare / reuse an Ubuntu container with proot-distro
 3. Inside Ubuntu: install Python, git and build tools, pick a Hermes-compatible
-   Python (3.11–3.13, via uv when the system Python is too new)
+   Python (3.14+, via uv when the system Python is older — upstream deps
+   require 3.14)
 4. Download Hermes Agent, create a virtual environment, install it
 5. Add a Termux-level `hermes` command, so you do not need to log into
    the container by hand

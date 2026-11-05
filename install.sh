@@ -92,16 +92,19 @@ apt-get install -y -o Dpkg::Options::="--force-confold" \
     libffi-dev libssl-dev pkg-config \
     ca-certificates >/dev/null 2>&1 || true
 
-# Hermes Agent needs Python 3.11 to 3.13. If the system Python is newer
-# (Ubuntu 25.10+ ships 3.14), fetch Python 3.13 with uv instead of failing.
+# Hermes Agent's core dependencies are pinned to Python >= 3.14
+# (upstream pyproject markers). A 3.11-3.13 venv installs the package
+# with ZERO dependencies, so `hermes setup` then crashes module by
+# module (ruamel, dotenv, ...). Use Python 3.14 or newer; fetch 3.14
+# with uv when the system Python is older.
 PY="python3"
-if ! "$PY" -c 'import sys; sys.exit(0 if (3, 11) <= sys.version_info < (3, 14) else 1)' 2>/dev/null; then
-    echo "System Python is too new for Hermes Agent - getting Python 3.13 with uv..."
+if ! "$PY" -c 'import sys; sys.exit(0 if sys.version_info >= (3, 14) else 1)' 2>/dev/null; then
+    echo "System Python is too old for Hermes Agent - getting Python 3.14 with uv..."
     curl -LsSf https://astral.sh/uv/install.sh | sh >/dev/null 2>&1 || true
     export PATH="$HOME/.local/bin:$PATH"
     command -v uv >/dev/null 2>&1 || python3 -m pip install uv >/dev/null 2>&1 || true
-    uv python install 3.13 >/dev/null 2>&1 || true
-    PY="$(uv python find 3.13 2>/dev/null || echo python3)"
+    uv python install 3.14 >/dev/null 2>&1 || true
+    PY="$(uv python find 3.14 2>/dev/null || echo python3)"
 fi
 echo "Using Python: $("$PY" --version 2>&1)"
 
