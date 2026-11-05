@@ -8,6 +8,14 @@ curl -fsSL https://raw.githubusercontent.com/w8bdcr-official/W8BDCR-Hermes-Own/m
 
 > 💡 Tip: To update on Termux anytime, re-run the installer — it updates the agent in place and reuses your Ubuntu container and your existing setup.
 
+### ▶️ Then just run it:
+
+```
+hermes
+```
+
+> The gateway starts itself when needed — any `hermes` command just works.
+
 ![Main Session](docs/diagrams/hermes-session.svg)
 
 # 🚀 W8BDCR Hermes — The Free AI Agent
