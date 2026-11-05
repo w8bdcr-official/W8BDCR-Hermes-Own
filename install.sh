@@ -143,25 +143,30 @@ run_pip() {
     fi
 }
 
+# uv is required: only `uv pip --override` can resolve the upstream
+# Pillow conflict below (plain pip has no override mechanism).
+if ! command -v uv >/dev/null 2>&1; then
+    echo "Installing uv (needed to resolve a dependency conflict)..."
+    curl -LsSf https://astral.sh/uv/install.sh | sh >/dev/null 2>&1 || true
+    export PATH="$HOME/.local/bin:$PATH"
+    command -v uv >/dev/null 2>&1 || python3 -m pip install uv >/dev/null 2>&1 || true
+fi
+
 echo "Upgrading pip, setuptools, wheel..."
 run_pip install --upgrade pip setuptools wheel >/dev/null 2>&1 || true
 
 echo "Installing Hermes Agent (this can take 5-10 minutes)..."
-# Try in order, heaviest first: full extras, then Termux extras
-# (with its constraints file when present), then base install.
-if ! run_pip install -e ".[all]"; then
-    echo "Full extras failed - trying Termux extras..."
-    if [ -f constraints-termux.txt ]; then
-        if ! run_pip install -e ".[termux]" -c constraints-termux.txt; then
-            echo "Termux extras failed - trying base install..."
-            run_pip install -e "." || { echo "Hermes Agent install failed - see the error above."; exit 1; }
-        fi
-    else
-        if ! run_pip install -e ".[termux]"; then
-            echo "Termux extras failed - trying base install..."
-            run_pip install -e "." || { echo "Hermes Agent install failed - see the error above."; exit 1; }
-        fi
-    fi
+# Upstream is currently unresolvable as-is: core pins Pillow==13.0.0
+# but browser-harness==0.1.13 (also core) requires pillow==12.3.0.
+# Override browser-harness's pin to Pillow 13 (API-compatible here).
+# Only uv understands --override, so skip the flag if uv is missing.
+printf 'pillow==13.0.0\n' > overrides.txt
+OVERRIDE_ARGS=()
+if command -v uv >/dev/null 2>&1; then OVERRIDE_ARGS=(--override overrides.txt); fi
+# Termux profile first: [all] pulls desktop extras that cannot build on Android.
+if ! run_pip install -e ".[termux]" "${OVERRIDE_ARGS[@]}"; then
+    echo "Termux extras failed - trying base install..."
+    run_pip install -e "." "${OVERRIDE_ARGS[@]}" || { echo "Hermes Agent install failed - see the error above."; exit 1; }
 fi
 
 # hermes-cli imports ruamel.yaml at startup but the extras above do not
