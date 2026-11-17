@@ -311,6 +311,12 @@ source venv/bin/activate || { echo "Could not activate the virtual environment -
 # The `|| true` keeps the chat opening even if the check hiccups.
 bash "$HOME/.local/bin/hermes-ensure-gateway.sh" || true
 
+# Work where the user typed the command: if the wrapper passed the
+# folder they were standing in (HERMES_START_DIR) and it exists inside
+# this container (e.g. /sdcard/... is shared), open the chat there so
+# the agent sees their project files. Otherwise stay here.
+cd "${HERMES_START_DIR:-}" 2>/dev/null || true
+
 # Chat in the foreground - exiting ends the session.
 exec hermes
 START_END
@@ -409,14 +415,16 @@ cat > "$PREFIX/bin/hermes" << WRAPPER_END
 # Any hermes command just works: the gateway starts itself when needed.
 # Only "hermes gateway ..." runs as-is (no auto-start inside a gateway
 # command - it IS the gateway).
-exec proot-distro login "$DISTRO" -- bash -lc 'source ~/hermes-agent/venv/bin/activate; if [ "\${1:-}" != "gateway" ] && [ -f "\$HOME/.local/bin/hermes-ensure-gateway.sh" ]; then bash "\$HOME/.local/bin/hermes-ensure-gateway.sh"; fi; exec hermes "\$@"' hermes "\$@"
+# Starts in the folder you typed the command in, when that folder is
+# visible inside Ubuntu (e.g. /sdcard/...). Otherwise starts at home.
+HERMES_START_DIR="\$PWD" exec proot-distro login "$DISTRO" -- bash -lc 'source ~/hermes-agent/venv/bin/activate; if [ "\${1:-}" != "gateway" ] && [ -f "\$HOME/.local/bin/hermes-ensure-gateway.sh" ]; then bash "\$HOME/.local/bin/hermes-ensure-gateway.sh"; fi; cd "\${HERMES_START_DIR:-}" 2>/dev/null || true; exec hermes "\$@"' hermes "\$@"
 WRAPPER_END
 chmod +x "$PREFIX/bin/hermes" 2>/dev/null || true
 
 cat > "$PREFIX/bin/hermes-start" << WRAPPER_END
 #!/data/data/com.termux/files/usr/bin/bash
 # W8BDCR Hermes - one-command daily launcher (Termux wrapper)
-exec proot-distro login "$DISTRO" -- bash -lc 'exec bash "\$HOME/.local/bin/hermes-start.sh"' hermes-start
+HERMES_START_DIR="\$PWD" exec proot-distro login "$DISTRO" -- bash -lc 'exec bash "\$HOME/.local/bin/hermes-start.sh"' hermes-start
 WRAPPER_END
 chmod +x "$PREFIX/bin/hermes-start" 2>/dev/null || true
 
