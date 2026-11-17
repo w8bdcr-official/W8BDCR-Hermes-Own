@@ -190,9 +190,13 @@ chmod +x "$HOME/.local/bin/hermes"
 cat > "$HOME/.local/bin/hermes-ensure-gateway.sh" << 'ENSURE_END'
 #!/bin/bash
 # W8BDCR Hermes - shared gateway check.
-# Starts the gateway first (only if it is not already running).
+# Starts the gateway first (only if it is not already running) and WAITS
+# until it actually answers. A fixed sleep is not enough on a phone: the
+# gateway can take 10-30s to come up, and the chat fails if it connects
+# too early ("Gateway connection failed; no local fallback").
 # Used by `hermes` (any command) and by `hermes-start`.
 GATEWAY_PID_FILE="/tmp/hermes-gateway.pid"
+GATEWAY_WAIT_SECONDS=90
 
 # True when the gateway is already running: a live PID file wins,
 # otherwise fall back to pgrep when it exists.
@@ -208,15 +212,84 @@ gateway_running() {
     return 1
 }
 
+# True when the gateway's control socket answers (its discovery socket).
+# The gateway listens on a Unix socket under the Hermes home
+# (~/.hermes/gateway.sock, or the path named in gateway.sock.path).
+gateway_answering() {
+    python3 - "$HOME" << 'PYEOF' >/dev/null 2>&1
+import os, socket, sys
+home = sys.argv[1]
+direct = os.path.join(home, ".hermes", "gateway.sock")
+path = None
+if os.path.exists(direct):
+    path = direct
+else:
+    pointer = os.path.join(home, ".hermes", "gateway.sock.path")
+    try:
+        with open(pointer, "r", encoding="utf-8") as f:
+            target = f.read().strip()
+        if target.startswith("/"):
+            path = target
+    except OSError:
+        path = None
+if not path:
+    sys.exit(1)
+s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+s.settimeout(2)
+try:
+    s.connect(path)
+except OSError:
+    sys.exit(1)
+s.close()
+sys.exit(0)
+PYEOF
+}
+
+# Wait until the gateway answers (up to $GATEWAY_WAIT_SECONDS).
+# $1 = PID to watch (may be empty: then only the socket is watched).
+# Prints the real cause from the gateway log when it fails.
+wait_for_gateway() {
+    local waited=0 watch_pid="$1"
+    while [ "$waited" -lt "$GATEWAY_WAIT_SECONDS" ]; do
+        if [ -n "$watch_pid" ] && ! kill -0 "$watch_pid" 2>/dev/null; then
+            echo "Gateway stopped while starting. Last lines of /tmp/gateway.log:"
+            tail -20 /tmp/gateway.log 2>/dev/null || true
+            return 1
+        fi
+        if gateway_answering; then
+            echo "Gateway is ready."
+            return 0
+        fi
+        sleep 2
+        waited=$((waited + 2))
+    done
+    echo "Gateway did not answer within ${GATEWAY_WAIT_SECONDS}s. Last lines of /tmp/gateway.log:"
+    tail -20 /tmp/gateway.log 2>/dev/null || true
+    return 1
+}
+
 cd "$HOME/hermes-agent" 2>/dev/null || true
 if gateway_running; then
     echo "Gateway is already running."
 else
     echo "Starting the gateway..."
-    hermes gateway run > /tmp/gateway.log 2>&1 &
-    echo $! > "$GATEWAY_PID_FILE"
-    # Give the gateway a few seconds to come up.
-    sleep 5
+    # 1) Upstream's own readiness wait: starts the gateway if needed and
+    #    waits until it answers. Older Hermes versions have no
+    #    `gateway ensure` - then this fails fast and the fallback takes over.
+    if hermes gateway ensure --timeout "$GATEWAY_WAIT_SECONDS" >/dev/null 2>&1; then
+        echo "Gateway is ready."
+        exit 0
+    fi
+    # 2) Fallback: start it ourselves and wait until its control socket
+    #    answers. If `ensure` already started one, just wait for that one.
+    if gateway_running; then
+        wait_for_gateway ""
+    else
+        hermes gateway run > /tmp/gateway.log 2>&1 &
+        gw_pid=$!
+        echo "$gw_pid" > "$GATEWAY_PID_FILE"
+        wait_for_gateway "$gw_pid"
+    fi
 fi
 ENSURE_END
 chmod +x "$HOME/.local/bin/hermes-ensure-gateway.sh"
