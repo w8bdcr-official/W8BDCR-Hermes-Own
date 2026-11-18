@@ -256,6 +256,14 @@ wait_for_gateway() {
             tail -20 /tmp/gateway.log 2>/dev/null || true
             return 1
         fi
+        # No PID watched and no gateway process exists at all: nothing
+        # will ever answer this socket - fail fast instead of waiting
+        # the full 90s for a gateway that is already gone.
+        if [ -z "$watch_pid" ] && ! gateway_running; then
+            echo "Gateway stopped while starting. Last lines of /tmp/gateway.log:"
+            tail -20 /tmp/gateway.log 2>/dev/null || true
+            return 1
+        fi
         if gateway_answering; then
             echo "Gateway is ready."
             return 0
@@ -269,28 +277,73 @@ wait_for_gateway() {
 }
 
 cd "$HOME/hermes-agent" 2>/dev/null || true
-if gateway_running; then
-    echo "Gateway is already running."
-else
-    echo "Starting the gateway..."
-    # 1) Upstream's own readiness wait: starts the gateway if needed and
-    #    waits until it answers. Older Hermes versions have no
-    #    `gateway ensure` - then this fails fast and the fallback takes over.
-    if hermes gateway ensure --timeout "$GATEWAY_WAIT_SECONDS" >/dev/null 2>&1; then
-        echo "Gateway is ready."
+# Verified gateway start (v11): "ready" is only claimed after a REAL
+# socket connect proves the gateway answers AND a live gateway process
+# exists. `hermes gateway ensure` alone is NOT proof - it has returned
+# success while no gateway stayed alive, and the chat then failed with
+# "Gateway connection failed; no local fallback" (seen 5 times,
+# 2026-11-17/18, latest from the project folder 2026-11-18 19:50).
+# Up to 3 attempts; on total failure the real log tail is printed and
+# this script exits non-zero, so the wrapper never opens a chat that
+# is guaranteed to fail.
+# 0) A gateway from an earlier session is usually still alive - and its
+#    control socket is already answering. Reuse it: starting a second
+#    gateway collides with the first one (it can steal the socket
+#    pointer and die). A real socket connect proves the gateway is
+#    listening; a stale socket file alone fails the connect, so this
+#    is safe.
+attempt=1
+while [ "$attempt" -le 3 ]; do
+    if gateway_answering; then
+        echo "Gateway is already running."
         exit 0
     fi
-    # 2) Fallback: start it ourselves and wait until its control socket
-    #    answers. If `ensure` already started one, just wait for that one.
     if gateway_running; then
-        wait_for_gateway ""
+        # A gateway process exists but its socket is not answering yet -
+        # it is still starting up. Wait for it, do not start another one.
+        echo "Gateway is starting... (attempt $attempt/3)"
+        if wait_for_gateway ""; then
+            echo "Gateway is ready."
+            exit 0
+        fi
     else
-        hermes gateway run > /tmp/gateway.log 2>&1 &
-        gw_pid=$!
-        echo "$gw_pid" > "$GATEWAY_PID_FILE"
-        wait_for_gateway "$gw_pid"
+        echo "Starting the gateway... (attempt $attempt/3)"
+        # 1) Upstream's own readiness wait: starts the gateway if needed
+        #    and waits until it answers. Older Hermes versions have no
+        #    `gateway ensure` - then this fails fast and the fallback
+        #    takes over.
+        if hermes gateway ensure --timeout "$GATEWAY_WAIT_SECONDS" >/dev/null 2>&1; then
+            # ensure claimed success - VERIFY it before believing it.
+            if gateway_answering && gateway_running; then
+                echo "Gateway is ready."
+                exit 0
+            fi
+            echo "Gateway said ready but is not answering - retrying..."
+        fi
+        # 2) Fallback: start it ourselves and wait until its control
+        #    socket answers. If `ensure` already started one, just wait
+        #    for that one.
+        if gateway_running; then
+            if wait_for_gateway ""; then
+                echo "Gateway is ready."
+                exit 0
+            fi
+        else
+            hermes gateway run > /tmp/gateway.log 2>&1 &
+            gw_pid=$!
+            echo "$gw_pid" > "$GATEWAY_PID_FILE"
+            if wait_for_gateway "$gw_pid"; then
+                echo "Gateway is ready."
+                exit 0
+            fi
+        fi
     fi
-fi
+    attempt=$((attempt + 1))
+    sleep 2
+done
+echo "Gateway could not be started after 3 attempts. Last lines of /tmp/gateway.log:"
+tail -25 /tmp/gateway.log 2>/dev/null || true
+exit 1
 ENSURE_END
 chmod +x "$HOME/.local/bin/hermes-ensure-gateway.sh"
 
@@ -308,8 +361,9 @@ cd "$HOME/hermes-agent" 2>/dev/null || { echo "Hermes Agent folder not found - r
 source venv/bin/activate || { echo "Could not activate the virtual environment - run the installer again."; exit 1; }
 
 # Shared gateway check - starts the gateway only if it is not running.
-# The `|| true` keeps the chat opening even if the check hiccups.
-bash "$HOME/.local/bin/hermes-ensure-gateway.sh" || true
+# If it cannot start, stop here with the real log instead of opening
+# a chat that is guaranteed to fail with "Gateway connection failed".
+bash "$HOME/.local/bin/hermes-ensure-gateway.sh" || { echo "Hermes gateway could not start - the log above shows why."; exit 1; }
 
 # Work where the user typed the command: if the wrapper passed the
 # folder they were standing in (HERMES_START_DIR) and it exists inside
@@ -417,7 +471,7 @@ cat > "$PREFIX/bin/hermes" << WRAPPER_END
 # command - it IS the gateway).
 # Starts in the folder you typed the command in, when that folder is
 # visible inside Ubuntu (e.g. /sdcard/...). Otherwise starts at home.
-HERMES_START_DIR="\$PWD" exec proot-distro login "$DISTRO" -- bash -lc 'source ~/hermes-agent/venv/bin/activate; if [ "\${1:-}" != "gateway" ] && [ -f "\$HOME/.local/bin/hermes-ensure-gateway.sh" ]; then bash "\$HOME/.local/bin/hermes-ensure-gateway.sh"; fi; cd "\${HERMES_START_DIR:-}" 2>/dev/null || true; exec hermes "\$@"' hermes "\$@"
+HERMES_START_DIR="\$PWD" exec proot-distro login "$DISTRO" -- bash -lc 'source ~/hermes-agent/venv/bin/activate; if [ "\${1:-}" != "gateway" ] && [ -f "\$HOME/.local/bin/hermes-ensure-gateway.sh" ]; then if ! bash "\$HOME/.local/bin/hermes-ensure-gateway.sh"; then if [ \$# -eq 0 ]; then echo "Hermes gateway could not start - the log above shows why."; exit 1; fi; fi; fi; cd "\${HERMES_START_DIR:-}" 2>/dev/null || true; exec hermes "\$@"' hermes "\$@"
 WRAPPER_END
 chmod +x "$PREFIX/bin/hermes" 2>/dev/null || true
 
